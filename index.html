@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Single Page Application</title>
+  </head>
+  <body>
+    <!-- Edit this URL to reflect your Auth0 Client ID and the port you're using -->
+    <a href="https://auth0user.auth0.com/authorize?scope=read:contacts%20read:calendar&audience=organize&response_type=id_token%20token&client_id=YOUR_CLIENT_ID&redirect_uri=http://localhost:3000&nonce=NONCE">
+      Sign In
+    </a>
+
+    <div id="app" style="display:none;">
+      <button id="get-contacts">List Contacts</button>
+      <button id="get-appointments">List Appointments</button>
+      <div id="results"><pre></pre></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script>
+    function getParameterByName(name) {
+      var match = RegExp('[#&]' + name + '=([^&]*)').exec(window.location.hash);
+      return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+    }
+
+    function getAccessToken() {
+      return getParameterByName('access_token');
+    }
+
+    function getIdToken() {
+      return getParameterByName('id_token');
+    }
+
+    $(function () {
+      var access_token = getAccessToken();
+      if (access_token) {
+        $('#app').show();
+      } else {
+        return
+      }
+
+      console.log('Your access token is ' + access_token)
+
+      // Use the access token to make API calls
+      $('#get-appointments').on('click', function(e) {
+        e.preventDefault();
+
+        // Change to the port you're using
+        $.ajax({
+          url: "http://localhost:3001/api/appointments",
+          method: "GET",
+          headers: { "Authorization": "Bearer " + access_token },
+          success: function (data) {
+            $('#results pre').text(JSON.stringify(data, null, 2))
+          }
+        });
+      });
+
+      $('#get-contacts').on('click', function(e) {
+        e.preventDefault();
+
+        // Change to the port you're using
+        $.ajax({
+          url: "http://localhost:3002/api/contacts",
+          method: "GET",
+          headers: { "Authorization": "Bearer " + access_token },
+          success: function (data) {
+            $('#results pre').text(JSON.stringify(data, null, 2))
+          }
+        });
+      });
+
+    });
+    </script>
+  </body>
+</html>
