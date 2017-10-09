@@ -47,7 +47,7 @@
 
         // Change to the port you're using
         $.ajax({
-          url: "http://localhost:3001/api/appointments",
+          url: "http://localhost:3002/api/appointments",
           method: "GET",
           headers: { "Authorization": "Bearer " + access_token },
           success: function (data) {
@@ -61,7 +61,7 @@
 
         // Change to the port you're using
         $.ajax({
-          url: "http://localhost:3002/api/contacts",
+          url: "http://localhost:3001/api/contacts",
           method: "GET",
           headers: { "Authorization": "Bearer " + access_token },
           success: function (data) {
