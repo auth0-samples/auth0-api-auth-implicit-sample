@@ -26,7 +26,7 @@ Prior to beginning, you may need to make some or all of the following changes so
 * `calendar-api.js`: replace each of the two placeholders with your Auth0 Domain
 * `contacts-api.js`: replace each of the two placeholders with your Auth0 Domain
 * `index.html`:
-  * update the Authorization URL with your Auth0 Client ID and the port you're using to serve the SPA
+  * update the Authorization URL with your domain, Auth0 Client ID, and the port you're using to serve the SPA
   * replace each of the two placeholders with the ports you're using to serve the `contacts` and `calendar` APIs
 
 ### Run the Sample
